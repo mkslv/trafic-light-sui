@@ -13,28 +13,24 @@ struct ContentView: View {
     
     enum TraficLight {
         case red, yellow, green
+        
+        var swiftUIColor: Color {
+            switch self {
+            case .red:
+                return .red
+            case .yellow:
+                return .yellow
+            case .green:
+                return .green
+            }
+        }
     }
     
     var body: some View {
         VStack {
-            Circle()
-                .foregroundStyle(.red)
-                .frame(width: 150, height: 150)
-                .shadow(color: .red, radius: 40, x: -30, y: 10)
-                .opacity( selectedColor == .red ? 1.0 : 0.2)
-                .overlay(Circle().stroke(Color.gray, lineWidth: 4))
-            Circle()
-                .foregroundStyle(.yellow)
-                .frame(width: 150, height: 150)
-                .shadow(color: .yellow, radius: 40, x: -30, y: 10)
-                .opacity( selectedColor == .yellow ? 1.0 : 0.2)
-                .overlay(Circle().stroke(Color.gray, lineWidth: 4))
-            Circle()
-                .foregroundStyle(.green)
-                .frame(width: 150, height: 150)
-                .shadow(color: .green, radius: 40, x: -30, y: 10)
-                .opacity( selectedColor == .green ? 1.0 : 0.2)
-                .overlay(Circle().stroke(Color.gray, lineWidth: 4))
+            trafficLightCircle(color: .red)
+            trafficLightCircle(color: .yellow)
+            trafficLightCircle(color: .green)
             Spacer()
             Button(action: {nextCollorButtonTapped()}, label: {
                 Text("Next color")
@@ -51,6 +47,15 @@ struct ContentView: View {
 
 // MARK: - Methods
 extension ContentView {
+    private func trafficLightCircle(color: TraficLight) -> some View {
+        Circle()
+            .foregroundStyle(color.swiftUIColor)
+            .frame(width: 150, height: 150)
+            .shadow(color: color.swiftUIColor, radius: 40, x: -30, y: 10)
+            .opacity(selectedColor == color ? 1.0 : 0.2)
+            .overlay(Circle().stroke(Color.gray, lineWidth: 4))
+    }
+    
     private func nextCollorButtonTapped() {
         print(#function)
         if selectedColor == .red {
@@ -61,6 +66,11 @@ extension ContentView {
             selectedColor = .red
         }
     }
+}
+
+// MARK: - TraficLightExtension
+extension ContentView.TraficLight {
+    
 }
 
 #Preview {
