@@ -11,18 +11,13 @@ struct ContentView: View {
     
     @State private var selectedColor: TraficLight? = nil
     
-    enum TraficLight {
-        case red, yellow, green
+    enum TraficLight: String {
+        case red
+        case yellow
+        case green
         
         var swiftUIColor: Color {
-            switch self {
-            case .red:
-                return .red
-            case .yellow:
-                return .yellow
-            case .green:
-                return .green
-            }
+            Color(rawValue)
         }
     }
     
