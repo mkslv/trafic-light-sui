@@ -68,11 +68,6 @@ extension ContentView {
     }
 }
 
-// MARK: - TraficLightExtension
-extension ContentView.TraficLight {
-    
-}
-
 #Preview {
     ContentView()
 }
